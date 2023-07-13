@@ -1,0 +1,124 @@
+<button (click)="isHidden()">
+  {{ showContent ? " Hide Conternt" : "Show Content" }}
+</button>
+<div class="container p-5" *ngIf="data; else sample">
+  <h3 class="text-center">Template Driven Forms</h3>
+  <div class="py-2 bold">
+    <p>Basic Template driven forms at HTML level</p>
+    <li>no relation b/w controller and HTML file</li>
+  </div>
+  <form #formDetail="ngForm" (ngSubmit)="login(formDetail)">
+    <input type="text" name="username" placeholder="username" ngModel />
+    <input type="text" name="password" placeholder="password" ngModel />
+    <button type="submit">Login</button>
+  </form>
+
+  <div class="p-3 bold">Basic Template driven forms at Controller level</div>
+  <form (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      name="username"
+      placeholder="username"
+      [(ngModel)]="formObj.userName"
+    />
+    <input
+      type="text"
+      name="password"
+      placeholder="password"
+      [(ngModel)]="formObj.password"
+    />
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<div class="container p-5">
+  <form (ngSubmit)="signup()">
+    <input
+      type="text"
+      name="city"
+      placeholder="city"
+      [(ngModel)]="signupObj.city"
+      required
+      #city="ngModel"
+    />
+
+    <div *ngIf="city.invalid && (city.touched || city.dirty)">
+      <p>This field is required</p>
+    </div>
+    <!-- pattern="(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!!@#$%^&*]{5-10}" -->
+
+    <input
+      type="text"
+      name="city"
+      placeholder="city"
+      [(ngModel)]="signupObj.phone"
+    />
+    <p>Dirty :- {{ city.dirty }}</p>
+    <p>Pristine :- {{ city.pristine }}</p>
+    <p>Touched :- {{ city.touched }}</p>
+    <p>Valid :- {{ city.valid }}</p>
+    <p>InValid :- {{ city.invalid }}</p>
+    <p>Errors :- {{ city.errors | json }}</p>
+
+    <button type="submit">submit</button>
+  </form>
+</div>
+
+<div class="container">
+  <p>Template Driven form Validation</p>
+  <form (ngSubmit)="register()" #registerForm="ngForm">
+    <div>
+      <input
+        type="text"
+        name="name"
+        placeholder="name"
+        [(ngModel)]="registerObj.name"
+        required
+        #name="ngModel"
+        [pattern]="emailpattern"
+      />
+      <div *ngIf="name.invalid && (name.touched || name.dirty)">
+        <p *ngIf="name.errors?.['required']">This field is required</p>
+        <p *ngIf="name.errors?.['pattern'] ">please Enter a valid Email</p>
+      </div>
+    </div>
+    <div>
+      <input
+        type="text"
+        name="password"
+        placeholder="password"
+        [(ngModel)]="registerObj.password"
+        #password="ngModel"
+        [pattern]="passwordpattern"
+        required
+      />
+      <div *ngIf="password.invalid && (password.dirty || password.touched)">
+        <p *ngIf="password.errors?.['required']">This filed is required</p>
+        <p *ngIf="password.errors?.['pattern']">
+          8 to 15 characters which contain at least one lowercase letter, one
+          uppercase letter, one numeric digit, and one special character
+        </p>
+      </div>
+    </div>
+    <div>
+      <select
+        name="gender"
+        [(ngModel)]="registerObj.gender"
+        required
+        #gender="ngModel"
+      >
+        <option value="male">Male</option>
+        <option value="feMale">FeMale</option>
+      </select>
+      <div *ngIf="gender.invalid && (gender.touched || gender.dirty)">
+        <p>this field is required</p>
+      </div>
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid">submit</button>
+  </form>
+</div>
+
+<ng-template #sample>
+  <button (click)="gotoBV()">Goto Basic Validation</button>
+  <router-outlet></router-outlet>
+</ng-template>

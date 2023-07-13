@@ -1,0 +1,29 @@
+<p>reactive-form works!</p>
+<div class="container">
+  <input type="email" placeholder="email" [formControl]="email" />
+  <button type="button" (click)="changeName()">ChangeFormControl</button>
+  <button (click)="removeValidation()"> Remove Validations</button>
+  <div *ngIf="email.invalid && (email.dirty || email.touched)">
+    <p *ngIf=" email.errors?.['required'] ">This foeld is required</p>
+    <p *ngIf=" email.errors?.['pattern'] ">please Enter a Valid Email</p>
+  </div>
+  <input type="password" placeholder="password" [formControl]="password" />
+  <div *ngIf="password.invalid && (password.touched || password.dirty)">
+    <p *ngIf=" password.errors?.['required']">This filed is required</p>
+    <p *ngIf=" password.errors?.['pattern'] ">
+      password contain 8 to 15 characters which contain at least one lowercase
+      letter, one uppercase letter, one numeric digit, and one special character
+    </p>
+  </div>
+  <button (click)="login()" [disabled]="email.invalid || password.invalid">
+    Login
+  </button>
+  <!-- {{ email | json }} -->
+
+  <p>Dirty : {{ email.dirty }}</p>
+  <p>touched : {{ email.touched }}</p>
+  <p>pristine : {{ email.pristine }}</p>
+  <p>valid : {{ email.valid }}</p>
+  <p>Invalid : {{ email.invalid }}</p>
+  <p>Errors : {{ email.errors | json }}</p>
+</div>
