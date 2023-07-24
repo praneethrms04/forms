@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TemplateDrivenFormComponent } from './template-driven-form/template-driven-form.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { FormGroupPracticeComponent } from './form-group-practice/form-group-practice.component';
+import { AddressManagementSystemComponent } from './address-management-system/address-management-system.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/reactive-forms',
+    redirectTo: 'ams',
     pathMatch: 'full',
   },
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
   {
     path: 'reactive-forms',
     component: ReactiveFormComponent,
+  },
+  {
+    path: 'form-group',
+    component: FormGroupPracticeComponent,
+  },
+  {
+    path: 'ams',
+    component: AddressManagementSystemComponent,
   },
 ];
 

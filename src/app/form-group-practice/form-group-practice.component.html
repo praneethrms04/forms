@@ -1,0 +1,55 @@
+<p>form-group-practice works!</p>
+
+<div class="container">
+  <form [formGroup]="loginformGroup" (ngSubmit)="login()">
+    <input type="text" placeholder="email" formControlName="email" />
+    <div
+      *ngIf="
+        getFormControl('email')?.invalid &&
+        (getFormControl('email')?.touched || getFormControl('email')?.dirty)
+      "
+    >
+      <p *ngIf="getFormControl('email')?.errors?.['required'] ">
+        this field is required
+      </p>
+      <p *ngIf="getFormControl('email')?.errors?.['pattern']">
+        please enter a valid email
+      </p>
+    </div>
+    <input type="text" placeholder="password" formControlName="password" />
+    <div
+      *ngIf="
+        getFormControl('password')?.invalid &&
+        (getFormControl('password')?.touched ||
+          getFormControl('password')?.dirty)
+      "
+    >
+      <p *ngIf="getFormControl('password')?.errors?.['required']">
+        this filed is required
+      </p>
+
+      <p *ngIf="getFormControl('password')?.errors?.['pattern'] ">
+        password contain 8 to 15 characters which contain at least one lowercase
+        letter, one uppercase letter, one numeric digit, and one special
+        character
+      </p>
+    </div>
+    <button type="submit" [disabled]="loginformGroup.invalid">Login</button>
+    <button type="button" (click)="reset()">Reset Form</button>
+  </form>
+</div>
+
+<h5>form Array : set of two input values</h5>
+
+<div class="container" *ngFor="let control of cities.controls; index as i">
+  <input type="text" placeholder="{{ i }}" [formControl]="getControl(i)" />
+  <button (click)="removefomrControl(i)">Delete</button>
+</div>
+<button (click)="getData()">get Data</button>
+<br />
+<button (click)="addData()">Add Data</button>
+<br />
+
+<ul *ngFor="let item of sampleArr">
+  <li>{{ item }}</li>
+</ul>

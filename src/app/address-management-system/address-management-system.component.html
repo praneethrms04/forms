@@ -1,0 +1,99 @@
+<div class="container">
+  <form [formGroup]="registerAddress" (ngSubmit)="register()">
+    <div class="pt-3">
+      <input type="text" placeholder="name" formControlName="name" />
+      <div *ngIf="isFieldValid(registerAddress, 'name')" class="text-danger">
+        <p *ngIf="getFieldByErrorType(registerAddress, 'name', 'required')">
+          This field is required
+        </p>
+        <p *ngIf="getFieldByErrorType(registerAddress, 'name', 'minlength')">
+          Name should contain atleast 5 characters
+        </p>
+      </div>
+    </div>
+    <div class="pt-3">
+      <input
+        type="text"
+        placeholder="email"
+        formControlName="email"
+        email="email"
+      />
+      <div *ngIf="isFieldValid(registerAddress, 'email')" class="text-danger">
+        <p *ngIf="getFieldByErrorType(registerAddress, 'email', 'required')">
+          This field is required
+        </p>
+        <p *ngIf="getFieldByErrorType(registerAddress, 'email', 'email')">
+          please Enter valid email
+        </p>
+      </div>
+    </div>
+    <div class="pt-1" formArrayName="addresses">
+      <div>
+        <button type="button" (click)="addAddress()">Add Address</button>
+      </div>
+
+      <ng-container *ngIf="addressesAsFormArray.controls.length <= 0">
+        <p>No address found</p>
+      </ng-container>
+
+      <ng-container
+        *ngFor="let control of addressesAsFormArray.controls; index as i"
+      >
+        <h6>
+          Address:
+          {{ control.get("id")?.value }}
+        </h6>
+
+        <button type="button" (click)="removeAddress(i)" class="mb-2">
+          Remove Addreess
+        </button>
+        <div [formGroupName]="i">
+          <div>
+            <input
+              type="text"
+              placeholder="streetName"
+              formControlName="streetName"
+            />
+            <div
+              *ngIf="isFieldValid(control, 'streetName')"
+              class="text-danger"
+            >
+              <p>This field is requred</p>
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <input
+              type="text"
+              placeholder="cityName"
+              formControlName="cityName"
+            />
+            <div *ngIf="isFieldValid(control, 'cityName')" class="text-danger">
+              <p>This field is requred</p>
+            </div>
+          </div>
+          <div class="pt-3">
+            <input
+              type="text"
+              placeholder="stateName"
+              formControlName="stateName"
+            />
+
+            <div *ngIf="isFieldValid(control, 'stateName')" class="text-danger">
+              <p>This field is requred</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="pt-2">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="registerAddress.invalid"
+        >
+          Register
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

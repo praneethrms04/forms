@@ -1,8 +1,9 @@
 <p>reactive-form works!</p>
-<div class="container">
+<app-component-a />
+<!-- <div class="container">
   <input type="email" placeholder="email" [formControl]="email" />
   <button type="button" (click)="changeName()">ChangeFormControl</button>
-  <button (click)="removeValidation()"> Remove Validations</button>
+  <button (click)="removeValidation()">Remove Validations</button>
   <div *ngIf="email.invalid && (email.dirty || email.touched)">
     <p *ngIf=" email.errors?.['required'] ">This foeld is required</p>
     <p *ngIf=" email.errors?.['pattern'] ">please Enter a Valid Email</p>
@@ -17,13 +18,46 @@
   </div>
   <button (click)="login()" [disabled]="email.invalid || password.invalid">
     Login
-  </button>
-  <!-- {{ email | json }} -->
-
-  <p>Dirty : {{ email.dirty }}</p>
+  </button> -->
+<!-- {{ email | json }} -->
+<!-- <p>Dirty : {{ email.dirty }}</p>
   <p>touched : {{ email.touched }}</p>
   <p>pristine : {{ email.pristine }}</p>
   <p>valid : {{ email.valid }}</p>
   <p>Invalid : {{ email.invalid }}</p>
-  <p>Errors : {{ email.errors | json }}</p>
+  <p>Errors : {{ email.errors | json }}</p> -->
+<!-- 
+  <h5>value Changes</h5>
+  <input type="number" placeholder="Enter meter value" [formControl]="meter" />
+  <div>{{ meter.value }} Meters to {{ centimeter }} centimeters</div> -->
+<!-- 
+  <div class="container">
+    <h4>Mark As Touched</h4>
+    <input type="text" placeholder="city" [formControl]="cityControl" />
+    <br />
+    <div
+      *ngIf="cityControl.invalid && (cityControl.touched || cityControl.dirty)"
+    >
+      <p *ngIf=" cityControl.errors?.['required']">This field is required</p>
+    </div>
+    {{ cityControl.value }}
+    <button (click)="touch()">submit</button>
+  </div> -->
+<!-- </div> -->
+
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <input type="text" placeholder="name" formControlName="name" />
+
+    <div>
+      <p>This form is required</p>
+    </div>
+    <br />
+    <input type="text" placeholder="email" formControlName="email" />
+    <br />
+    <input type="text" placeholder="password" formControlName="password" />
+    <br />
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  </form>
 </div>
+<button (click)="getValues()">get values</button>

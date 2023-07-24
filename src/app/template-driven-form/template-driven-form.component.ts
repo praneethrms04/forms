@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-template-driven-form',
@@ -8,6 +8,8 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./template-driven-form.component.css'],
 })
 export class TemplateDrivenFormComponent {
+  @ViewChild('registerForm') form!: NgForm;
+
   constructor(private router: Router) {}
 
   data: boolean = false;
@@ -57,6 +59,9 @@ export class TemplateDrivenFormComponent {
   register() {
     console.log(this.registerObj);
     // this.registerObj.reset()
+    this.form.resetForm({
+      gender: 'male',
+    });
   }
 
   gotoBV() {
